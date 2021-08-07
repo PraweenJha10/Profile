@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Profile.Migrations
 {
-    public partial class ProfileModelsUserContext : Migration
+    public partial class UserDBInitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,9 +13,9 @@ namespace Profile.Migrations
                 {
                     EmployeeNumber = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LoginName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LoginName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ManagerName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ManagerEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -26,12 +26,30 @@ namespace Profile.Migrations
                 {
                     table.PrimaryKey("PK_userInfo", x => x.EmployeeNumber);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "userProfiles",
+                columns: table => new
+                {
+                    ProfileId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EmployeeNumber = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_userProfiles", x => x.ProfileId);
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "userInfo");
+
+            migrationBuilder.DropTable(
+                name: "userProfiles");
         }
     }
 }

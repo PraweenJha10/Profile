@@ -30,8 +30,10 @@ namespace Profile
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContext<UserContext>(opts => opts.UseSqlServer("User"));
+            var connectionstring = Configuration["connectionStrings:UserDB"];
+            services.AddDbContext<UserContext>(opts => opts.UseSqlServer(connectionstring));
             services.AddScoped<IUserDataRepository<UserInfo>, UserDataRepository>();
+            services.AddScoped<IUserProfileRepository<UserProfile>, UserProfileRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

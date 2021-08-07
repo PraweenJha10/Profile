@@ -13,8 +13,13 @@ namespace Profile.DataAccess
 
         public UserContext(DbContextOptions<UserContext> contextOptions):base (contextOptions)
         {
-           
+           // Database.EnsureCreated();
         }
         public DbSet<UserInfo> userInfo { get; set; }
+        public DbSet<UserProfile> userProfiles { get; set; }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder)
+        //{
+
+        //}
     }
 }

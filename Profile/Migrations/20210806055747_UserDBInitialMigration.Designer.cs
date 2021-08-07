@@ -10,8 +10,8 @@ using Profile.DataAccess;
 namespace Profile.Migrations
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20210620013856_Profile.Models.UserContext")]
-    partial class ProfileModelsUserContext
+    [Migration("20210806055747_UserDBInitialMigration")]
+    partial class UserDBInitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -57,6 +57,27 @@ namespace Profile.Migrations
                     b.HasKey("EmployeeNumber");
 
                     b.ToTable("userInfo");
+                });
+
+            modelBuilder.Entity("Profile.Models.UserProfile", b =>
+                {
+                    b.Property<int>("ProfileId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EmployeeNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ProfileId");
+
+                    b.ToTable("userProfiles");
                 });
 #pragma warning restore 612, 618
         }
